@@ -29,7 +29,10 @@ const Routes = () => {
         },
     ];
 
-    const router = createBrowserRouter(routeObject);
+    // Use basename for GitHub Pages deployment
+    const router = createBrowserRouter(routeObject, {
+        basename: process.env.PUBLIC_URL || '/'
+    });
 
     return <RouterProvider router={router} />;
 }
