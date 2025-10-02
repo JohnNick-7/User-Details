@@ -1,0 +1,136 @@
+.toggle-section {
+    background-color: white;
+    padding: 12px 20px;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-shrink: 0;
+
+    .toggle-group {
+        display: flex;
+        gap: 0;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        overflow: hidden;
+
+        &.full-width {
+            width: 100%;
+        }
+
+        // Variants
+        &.compact {
+            border: none;
+            gap: 4px;
+
+            .toggle-btn {
+                border: 1px solid #e5e7eb;
+                border-radius: 4px;
+                
+                &:not(:last-child) {
+                    border-right: 1px solid #e5e7eb;
+                }
+            }
+        }
+
+        &.pills {
+            border: none;
+            gap: 8px;
+            
+            .toggle-btn {
+                border-radius: 20px;
+                border: 1px solid #e5e7eb;
+                
+                &:not(:last-child) {
+                    border-right: 1px solid #e5e7eb;
+                }
+
+                &.active {
+                    border-color: #3b82f6;
+                }
+            }
+        }
+
+        .toggle-btn {
+            padding: 6px 16px;
+            border: none;
+            border-right: 1px solid #e5e7eb;
+            background-color: white;
+            color: #6b7280;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+
+            &:last-child {
+                border-right: none;
+            }
+
+            &:hover:not(.active) {
+                background-color: #f9fafb;
+            }
+
+            &.active {
+                background-color: #3b82f6;
+                color: white;
+            }
+
+            .toggle-icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+            }
+
+            .toggle-label {
+                display: inline-block;
+            }
+        }
+
+        // Sizes
+        &.small .toggle-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+
+            .toggle-icon {
+                font-size: 12px;
+            }
+        }
+
+        &.medium .toggle-btn {
+            padding: 6px 16px;
+            font-size: 13px;
+
+            .toggle-icon {
+                font-size: 14px;
+            }
+        }
+
+        &.large .toggle-btn {
+            padding: 8px 20px;
+            font-size: 14px;
+
+            .toggle-icon {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+// Standalone toggle (no section wrapper)
+.toggle-group-standalone {
+    display: inline-flex;
+    gap: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+
+    &.full-width {
+        width: 100%;
+    }
+}

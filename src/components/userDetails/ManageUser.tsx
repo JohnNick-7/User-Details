@@ -6,7 +6,9 @@ import Button from '../inputs/views/Button.tsx'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../store/index.ts'
 import { updateUser, createUser, fetchUsers } from '../../store/slices/userSlice.ts'
-
+import './styles/manageUser.scss'
+import { toast } from 'react-toastify'
+import { isValidEmail } from '../../utils/validationUtil.ts'
 const ManageUser = (props: any) => {
     const { state, setState } = props;
     const [formData, setFormData] = useState(defaultValues)
@@ -14,12 +16,26 @@ const ManageUser = (props: any) => {
         if (state.row) {
             setFormData(state.row)
         }
-        else{
+        else {
             setFormData(defaultValues)
         }
     }, [state.row])
     const dispatch = useDispatch<AppDispatch>()
+    const validateForm = () => {
+        if (formData.firstName === '' || formData.lastName === '' || formData.email === '' || formData.imageLink === '') {
+            toast.error('Please fill all the fields')
+            return false
+        }
+        else if (!isValidEmail(formData.email)) {
+            toast.error('Please enter a valid email')
+            return false
+        }
+        return true
+    }
     const save = async () => {
+        if (!validateForm()) {
+            return
+        }
         if (state.isEdit) {
             dispatch(updateUser({ ...formData, id: state.row.id }))
         } else {
@@ -31,19 +47,25 @@ const ManageUser = (props: any) => {
     }
     return (
         <div>
-            <Modal title='Manage User' onClose={() => setState({ ...state, isOpen: false })} isOpen={state.isOpen}>
-                <div>
+            <Modal title={`${state?.isEdit ? "Update User" : "Create User"}`} onClose={() => setState({ ...state, isOpen: false })} isOpen={state.isOpen}>
+                <div className='manage-user-container'>
                     {attributes.map((attribute) => (
-                        <CommonInput
-                            key={attribute.name}
-                            name={attribute.name}
-                            type={attribute.type}
-                            placeholder={attribute.placeholder}
-                            value={formData[attribute.name]}
-                            onChange={(e) => setFormData({ ...formData, [attribute.name]: e.target.value })} />
+                        <div key={attribute.name}>
+                            <div className='input-label'>
+                                <label>{attribute.placeholder}</label>
+                            </div>
+                            <CommonInput
+                                key={attribute.name}
+                                name={attribute.name}
+                                type={attribute.type}
+                                placeholder={attribute.placeholder}
+                                value={formData[attribute.name]}
+                                onChange={(e) => setFormData({ ...formData, [attribute.name]: e.target.value })} />
+
+                        </div>
                     ))}
                     <div className='button-container'>
-                        <Button variant='primary' size='small' onClick={save}>Save</Button>
+                        <Button variant='primary' size='small' onClick={save}>{state?.isEdit ? "Update" : "Create"}</Button>
                         <Button variant='secondary' size='small' onClick={() => setState({ ...state, isOpen: false })}>Cancel</Button>
                     </div>
                 </div>

@@ -6,6 +6,7 @@ import Button from "../inputs/views/Button.tsx"
 import './styles/login.scss'
 import { useAuth } from "./useAuth.ts"
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
 
@@ -25,13 +26,17 @@ const Login = () => {
     }
 
     const handleLogin = async (e: React.FormEvent) => {
+        if (formData.username === '' || formData.password === '') {
+            toast.error('Please fill all the fields')
+            return
+        }
         e.preventDefault();
         const success = await login(formData.username, formData.password);
         if (success) {
-            console.log("Login successful");
+            toast.success('Login successful')
             navigate("/app/user-details")
         } else {
-            console.log("Login failed");
+            toast.error('Username or password is incorrect')
         }
     };
 
@@ -64,7 +69,7 @@ const Login = () => {
                         <Button
                             onClick={handleLogin}
                             variant="primary"
-                            size="medium"
+                            size="small"
                             fullWidth
                         >
                             Sign In

@@ -10,17 +10,28 @@ import Button from '../inputs/views/Button.tsx'
 import '../header/styles/header.scss'
 import './styles/userDetails.scss'
 import ManageUser from './ManageUser.tsx'
-import { columns } from './model/user.ts'
+import { columns, viewOptions } from './model/user.ts'
+import ToggleButton from '../toggle/ToggleButton.tsx'
+import CardWrapper from '../card/CardWrapper.tsx'
+import Modal from '../modal/Modal.tsx'
 
 const UserDetails: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const searchQuery = useSelector(selectSearch)
-    const [viewMode, setViewMode] = useState<'table' | 'card'>('table')
+    const [viewMode, setViewMode] = useState<string>('table')
+
+
     const [state, setState] = useState({
         isOpen: false,
         isEdit: false,
         row: null
     })
+
+    const [modalDelete, setModalDelete] = useState({
+        isOpen: false,
+        id: ""
+    })
+
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(setSearchQuery(e.target.value))
     }
@@ -31,7 +42,9 @@ const UserDetails: React.FC = () => {
 
     const deleteItem = (id: string) => {
         dispatch(deleteUser(id))
+        setModalDelete({ ...modalDelete, isOpen: false })
     }
+
 
     const createUser = () => {
         setState({ ...state, isOpen: true, isEdit: false, row: null })
@@ -64,27 +77,32 @@ const UserDetails: React.FC = () => {
                 </div>
 
                 <div className='table-container-wrapper'>
-                    <div className='view-toggle-section'>
-                        <div className='view-toggles'>
-                            <button
-                                className={`view-toggle-btn table-view ${viewMode === 'table' ? 'active' : ''}`}
-                                onClick={() => setViewMode('table')}
-                            >
-                                Table
-                            </button>
-                            <button
-                                className={`view-toggle-btn card-view ${viewMode === 'card' ? 'active' : ''}`}
-                                onClick={() => setViewMode('card')}
-                            >
-                                Card
-                            </button>
-                        </div>
-                    </div>
+                    <ToggleButton
+                        options={viewOptions}
+                        value={viewMode}
+                        onChange={setViewMode}
+                        size="medium"
+                    />
 
-                    <TableWrapper columns={columns} viewMode={viewMode} editItem={editItem} deleteItem={deleteItem} />
+                    {viewMode === 'table' ? (
+                        <TableWrapper columns={columns} editItem={editItem} deleteItem={(id) => setModalDelete({ ...modalDelete, isOpen: true, id: id })} />)
+                        : (
+                            <CardWrapper editItem={editItem} deleteItem={(id) => setModalDelete({ ...modalDelete, isOpen: true, id: id })} />
+                        )
+                    }
                 </div>
             </div>
             <ManageUser state={state} setState={setState} />
+
+            <Modal isOpen={modalDelete.isOpen} title="Delete User" onClose={() => setModalDelete({ ...modalDelete, isOpen: false })} >
+                <div className='delete-modal-container'>
+                    <h3>Are you sure you want to Delete?</h3>
+                    <div className='delete-modal-button-container'>
+                        <Button variant='primary' size='small' onClick={() => deleteItem(modalDelete.id as string)}>Delete</Button>
+                        <Button variant='secondary' size='small' onClick={() => setModalDelete({ ...modalDelete, isOpen: false })}>Cancel</Button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }

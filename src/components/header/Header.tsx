@@ -18,8 +18,8 @@ const Header: React.FC = () => {
                 </div>
                 <div className="header-right">
                     <div className="user-info">
-                        <span className="user-name">Elon Musk</span>
-                        <div className="user-avatar">G</div>
+                        <span className="user-name">Emilys Smith</span>
+                        <div className="user-avatar">E</div>
                     </div>
                     <button className="logout-btn" onClick={handleLogout}>
                         Logout

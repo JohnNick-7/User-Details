@@ -13,12 +13,11 @@ interface Column {
 
 interface TableWrapperProps {
     columns: Column[];
-    viewMode?: 'table' | 'card';
     editItem: (row: any) => void;
     deleteItem: (id: string) => void;
 }
 
-const TableWrapper: React.FC<TableWrapperProps> = ({ columns, viewMode = 'table', editItem, deleteItem }) => {
+const TableWrapper: React.FC<TableWrapperProps> = ({ columns,  editItem, deleteItem }) => {
     const tableData = useSelector(selectDisplayedUsers)
     const loading = useSelector(selectLoading)
 

@@ -1,3 +1,5 @@
+import { ToggleOption } from "../../toggle/ToggleButton"
+
 export const attributes = [
     {
         name: 'firstName',
@@ -34,4 +36,10 @@ export const columns = [
     { id: 'firstName', header: 'First Name', key: 'firstName' },
     { id: 'lastName', header: 'Last Name', key: 'lastName' },
     { id: 'actions', header: 'Action', key: 'actions' },
+]
+
+
+export const viewOptions: ToggleOption[] = [
+    { value: 'table', label: 'Table', icon: '☰' },
+    { value: 'card', label: 'Card', icon: '⊞' }
 ]
