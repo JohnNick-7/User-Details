@@ -19,7 +19,7 @@ const Routes = () => {
                 },
                 {
                     path: 'user-details',
-                    element: <UserDetails />
+                    element: <UserDetails/>
                 }
             ]
         },

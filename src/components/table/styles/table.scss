@@ -1,0 +1,182 @@
+.table-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+
+    .loading {
+        text-align: center;
+        padding: 32px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .table-scroll-container {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: auto;
+        
+        &::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        &::-webkit-scrollbar-track {
+            background: #f3f4f6;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+            
+            &:hover {
+                background: #9ca3af;
+            }
+        }
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+        font-size: 13px;
+        text-align: left;
+        background: white;
+
+        .table-header {
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+            z-index: 0;
+            
+            th {
+                padding: 12px 16px;
+                font-weight: 600;
+                border-bottom: 1px solid #e5e7eb;
+                color: #374151;
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                background-color: #f8f9fa;
+            }
+        }
+
+        .table-body {
+            tr {
+                border-bottom: 1px solid #f3f4f6;
+                
+                &:hover {
+                    background-color: #f9fafb;
+                }
+                
+                td {
+                    padding: 12px 16px;
+                    color: #374151;
+                    vertical-align: middle;
+                    
+                    &.no-data {
+                        text-align: center;
+                        color: #6b7280;
+                        font-style: italic;
+                        padding: 32px;
+                    }
+                }
+            }
+        }
+
+        // Email cell with avatar
+        .email-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .user-avatar {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #e5e7eb;
+            }
+
+            .email-text {
+                color: #3b82f6;
+                font-weight: 500;
+                text-decoration: none;
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        // Action buttons
+        .action-buttons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+    }
+
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 12px 20px;
+        border-top: 1px solid #e5e7eb;
+        background: white;
+        border-radius: 0 0 8px 8px;
+        margin-top: 0;
+        flex-shrink: 0;
+        
+        .pagination-info {
+            color: #6b7280;
+            font-size: 13px;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 4px;
+            
+            .pagination-btn {
+                padding: 6px 10px;
+                border: 1px solid #d1d5db;
+                background: white;
+                color: #374151;
+                cursor: pointer;
+                border-radius: 6px;
+                font-size: 13px;
+                font-weight: 500;
+                transition: all 0.2s;
+                min-width: 36px;
+                
+                &:hover:not(:disabled) {
+                    background-color: #f3f4f6;
+                    border-color: #9ca3af;
+                }
+                
+                &.active {
+                    background-color: #3b82f6;
+                    color: white;
+                    border-color: #3b82f6;
+                }
+                
+                &:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+
+    .error-message {
+        background-color: #fee2e2;
+        color: #dc2626;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        border: 1px solid #fecaca;
+    }
+}

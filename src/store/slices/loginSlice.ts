@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import restService from "../../service/restService.ts";
+import restService from "../../components/service/restService.ts";
+import { hideLoader, showLoader } from "./loaderSlice.ts";
 
 interface LoginState {
     token: string | null;
@@ -18,12 +19,15 @@ const initialState: LoginState = {
 // Thunk for login
 export const loginUser = createAsyncThunk(
     "login/loginUser",
-    async (data: { username: string; password: string }, { rejectWithValue }) => {
+    async (data: { username: string; password: string }, { rejectWithValue, dispatch }) => {
         try {
+            dispatch(showLoader());
             const response = await restService.post("/login", data);
+            dispatch(hideLoader());
             console.log(response);
             return { token: response.data.accessToken, username: data.username };
         } catch (err: any) {
+            dispatch(hideLoader());
             return rejectWithValue(err.response?.data?.error || "Login failed");
         }
     }

@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../store/hook.ts";
-import { loginUser, logoutUser } from "../store/slices/loginSlice.ts";
+import { useAppDispatch, useAppSelector } from "../../store/hooks.ts";
+import { loginUser, logoutUser } from "../../store/slices/loginSlice.ts";
 
 export const useAuth = () => {
     const dispatch = useAppDispatch();
@@ -21,7 +21,8 @@ export const useAuth = () => {
         dispatch(logoutUser());
     };
 
-    const isAuthenticated = !!token;
+    // Temporary: Always return true for development
+    const isAuthenticated = true; // !!token;
 
     return {
         isAuthenticated,

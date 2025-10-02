@@ -47,20 +47,25 @@ const Login = () => {
                         <CommonInput
                             name="username"
                             type="text"
-                            handleChange={handleChange}
-                            formData={formData}
+                            value={formData.username}
+                            onChange={handleChange}
                             placeholder="Enter Email"
+                            fullWidth
                         />
                         <Password
                             name="password"
-                            handleChange={handleChange}
-                            formData={formData}
+                            value={formData.password}
+                            onChange={handleChange}
                             placeholder="Enter Password"
+                            fullWidth
                         />
                     </div>
                     <div className="login-button">
                         <Button
                             onClick={handleLogin}
+                            variant="primary"
+                            size="medium"
+                            fullWidth
                         >
                             Sign In
                         </Button>
