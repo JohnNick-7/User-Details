@@ -5,7 +5,7 @@ import { selectPagination } from '../../store/index.ts'
 
 const Pagination: React.FC = () => {
     const dispatch = useDispatch()
-    const { currentPage, totalPages, itemsPerPage } = useSelector(selectPagination)
+    const { currentPage, totalPages } = useSelector(selectPagination)
 
     const handlePageChange = (page: number) => {
         if (page >= 1 && page <= totalPages) {
@@ -53,9 +53,9 @@ const Pagination: React.FC = () => {
                 >
                     Previous
                 </button>
-                
+
                 {renderPageNumbers()}
-                
+
                 <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
