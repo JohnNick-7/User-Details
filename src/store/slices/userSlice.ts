@@ -24,6 +24,7 @@ export const fetchUsers = createAsyncThunk(
       dispatch(hideLoader());
       return response.data as User[];
     } catch (error: any) {
+      dispatch(hideLoader());
       return rejectWithValue(error.response?.data?.message || 'Failed to fetch users');
     }
   }
